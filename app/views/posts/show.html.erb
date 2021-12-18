@@ -17,10 +17,7 @@
 
 <div id="cmt">
 	<% @comments.each do |comment| %>
-	  	<div id="<%= @post.id %>">
-	  		<%= render "comments/comment", comment: comment %>
-	    	<%= link_to "delete", [comment.post, comment], method: :delete %>
-		</div>
+	  	<%= render "comments/comment", comment: comment %>
 		<br>
 	<% end %>
 </div>

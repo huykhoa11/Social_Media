@@ -1,1 +1,4 @@
-<%= comment.content %>
+<div id="comment-<%= comment.id %>">
+	<%= comment.content %>
+	<%= link_to "delete", [comment.post, comment], method: :delete, remote: true %>
+</div>
