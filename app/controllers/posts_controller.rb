@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.all
+
   end
 
   # GET /posts/1 or /posts/1.json
@@ -11,6 +12,8 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments  #投稿詳細に関連付けてあるコメントを全取得
     @comment = Comment.new
+    @favorite_exist = Favorite.where(post: @post) == [] ? false : true
+
   end
 
   # GET /posts/new

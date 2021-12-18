@@ -3,6 +3,10 @@
 <p>
   <strong>Title:</strong>
   <%= @post.title %>
+  <br>
+  <span style="font-size:500%;color:red;">&hearts;</span>
+  <br>
+  <%= link_to favorite_text, favorites_update_path(post: @post), id: "favorite_link", remote: true, class: "fav" %>
 </p>
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %><br><br>
@@ -15,11 +19,12 @@
 
 <h2>コメント一覧 </h2> 
 
-<div id="cmt">
+<!-- <div id="cmt"> -->
 	<% @comments.each do |comment| %>
 	  	<%= render "comments/comment", comment: comment %>
 		<br>
 	<% end %>
-</div>
+<!-- </div> -->
 
+<!-- tai sao lai phai co div id va file js ???? -->
 
