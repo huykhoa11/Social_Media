@@ -3,6 +3,18 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+$(document).ready(function(){
+	$("button").click(function(){
+		$.ajax({
+			url: "/posts/" +this.parentElement.id+ "/comments/" +this.id,
+			type: "DELETE",
+			success: function(r){
+				
+			}
+		})
+	});
+});
+
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
@@ -11,3 +23,4 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
