@@ -4,6 +4,8 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.all
+    @post = Post.new    #create new post のための @post
+    @post_show_arr = []
 
   end
 
