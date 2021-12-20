@@ -1,15 +1,28 @@
+if("<%= favorite_text %>" == "Favorite"){
+ 	$('#favorite_link').css("color","gray");
+ 	$(".like").css("filter", "grayscale(100%)");
+ };
+if("<%= favorite_text %>" == "UnFavorite") {
+ 	$('#favorite_link').css("color","red");
+ 	$(".like").css("filter", "grayscale(0%)");
+};
+
 $("#favorite_link").text("<%= favorite_text %>");
 
-$('#favorite_img').attr( "src" , "heartred.png" );
 
-$('#favorite_img').on({
-    'click': function(){
-    	if("<%= favorite_text %>" == "UnFavorite"){
-    		$('#favorite_img').attr("src","heart.png");
-    	}
-    	else {
-    		$('#favorite_img').attr("src","heartred.png");
-    	}
-        
-    }
-});
+
+
+
+// $('#favorite_img').attr( "src" , "heartred.png" );
+
+// $('#favorite_img').on({
+//     'click': function(){
+//     	if("<%= favorite_text %>" == "UnFavorite"){
+//     		$('#favorite_img').attr("src","heart.png");
+//     	}
+//     	else {
+//     		$('#favorite_img').attr("src","heartred.png");
+//     	};
+//     }
+// });
+

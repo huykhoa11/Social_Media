@@ -9,7 +9,7 @@ class FavoritesController < ApplicationController
   		@favorite_exists = false
   	end
   	respond_to do |format|
-  		format.html {}
+      format.html {}
   		format.js {}
   	end
   	
