@@ -1,0 +1,11 @@
+<% if @favorite_exists == false %>
+  	<div class="like fav", style="filter: grayscale(100%);"></div>
+  	<div><%= link_to "Favorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:gray;",remote: true %><div>
+  		<script>console.log("Favorite");</script>
+  <% else %>
+  	<div class="like fav", style="filter: grayscale(0%);"></div>
+  	<div><%= link_to "UnFavorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:red;",remote: true %></div>
+		<script>console.log("UnFavorite");</script>
+  <% end %>
+
+  <script>console.log("####################################");</script>

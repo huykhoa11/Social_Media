@@ -7,8 +7,8 @@
   <span style="font-size:500%;color:red;">&hearts;</span>
   <br>
   
-  <% if favorite_text == "Favorite"   %>
-  	<div class="like fav", style="filter: grayscale(100%);"></div>
+  <% if favorite_text == "Favorite" %>
+  	<div class="like fav", style="filter: grayscale(93%);"></div>
   	<div><%= link_to favorite_text, favorites_update_path(post: @post), id: "favorite_link", class: "fav", style:"color:gray;",remote: true %><div>
   <% else %>
   	<div class="like fav", style="filter: grayscale(0%);"></div>

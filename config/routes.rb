@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'favorites/update'
+  get 'favorites/UpdateIndex'
   get 'comments/create'
   resources :posts do
     resources :comments

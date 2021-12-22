@@ -1,0 +1,15 @@
+$("#favorite_link").text("<%= favorite_text %>");
+// console.log("test update.js.erb");
+
+<% if @favorite_exists == false %>
+	console.log("@favorite_exists = false");
+	$("#favorite_link").css("color","gray");
+	$(".like").css("filter", "grayscale(100%)");
+<% else %>
+	console.log("@favorite_exists = true");
+	$('#favorite_link').css("color","red");
+	$(".like").css("filter", "grayscale(0%)");
+<% end %>
+
+
+
