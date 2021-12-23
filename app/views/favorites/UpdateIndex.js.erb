@@ -1,14 +1,42 @@
-$("#favorite_link").text("<%= favorite_text %>");
+// $("#favorite_link").text("<%= favorite_text %>");
 // console.log("test update.js.erb");
+// var count = $("table .FavList #favorite_link").length;
+
+console.log("<%= @ppost.id %>");
+<%
+	@FavArr = []
+	#@mark = 0
+	@posts.each do |pp|
+		@FavArr << pp.id
+		if pp.id == @ppost.id
+			@mark = @FavArr.find_index(pp.id) + 1
+		end
+	end
+%>
+
+// $("#favorite_link").css("color","gray");
+// $(".like").css("filter", "grayscale(100%)");
+
+var t = "<%= @mark %>"; 
+console.log(t);
+// $( "div ul:nth-child(" +t+ ") #ha" ).append( "<span> - 2nd!</span>" );
 
 <% if @favorite_exists == false %>
 	console.log("@favorite_exists = false");
-	$("#favorite_link").css("color","gray");
-	$(".like").css("filter", "grayscale(100%)");
+	// $( "table .FavList:nth-child(" + t + ") #favorite_link").css("color","gray");
+	// $( "table .FavList:nth-child(" + t + ") #favorite_link").text("Favorite");
+	// $( "table .FavList:nth-child(" + t + ") .like").css("filter", "grayscale(100%)");
+	$( "table tr:nth-child(" + t + ") #favorite_link").css("color","gray");
+	$( "table tr:nth-child(" + t + ") #favorite_link").text("Favorite");
+	$( "table tr:nth-child(" + t + ") .like").css("filter", "grayscale(100%)");
 <% else %>
 	console.log("@favorite_exists = true");
-	$('#favorite_link').css("color","red");
-	$(".like").css("filter", "grayscale(0%)");
+	// $( "table .FavList:nth-child(" + t + ") #favorite_link").css("color","red");
+	// $( "table .FavList:nth-child(" + t + ") #favorite_link").text("UnFavorite");
+	// $( "table .FavList:nth-child(" + t + ") .like").css("filter", "grayscale(0%)");
+	$( "table tr:nth-child(" + t + ") #favorite_link").css("color","red");
+	$( "table tr:nth-child(" + t + ") #favorite_link").text("UnFavorite");
+	$( "table tr:nth-child(" + t + ") .like").css("filter", "grayscale(0%)");
 <% end %>
 
 

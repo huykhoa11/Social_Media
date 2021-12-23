@@ -29,6 +29,10 @@ class FavoritesController < ApplicationController
       format.html {}
       format.js {}
     end
+
+    @ppost = Post.find(params[:post])
+    @favorite_exists = Favorite.where(post: @ppost) == [] ? false : true
+    @mark = 0
   end
 
 end

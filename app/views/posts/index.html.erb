@@ -17,8 +17,11 @@
 
   <tbody>
     <% @posts.each do |post| %>
-      <% 
+      <%
+        a = post.id
         @favorite_exists = Favorite.where(post: post) == [] ? false : true
+        #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
+        
         @comments = post.comments 
         @c = Comment.new
       %>
@@ -47,7 +50,7 @@
         <td>
           <%= favorite_text %> <!-- always return as "Favorite", why???  -->
         </td>
-         <td>
+         <td class="FavList">
           <%= render "favoritesImage", post: post %>
         </td> 
         <td><%= link_to 'Show', post %></td>

@@ -9,18 +9,18 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
     @post = Post.new    #create new post のための @post
-    @post_show_arr = []
-    set_favorite_exists
+    #@post_show_arr = []
+    #set_favorite_exists
     #@favorite_exists = Favorite.where(post: post) == [] ? false : true
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    
+    @favorite_exists = Favorite.where(post: @post) == [] ? false : true
     @post = Post.find(params[:id])
     @comments = @post.comments  #投稿詳細に関連付けてあるコメントを全取得
     @comment = Comment.new
-    @favorite_exists = Favorite.where(post: @post) == [] ? false : true
+    
   end
 
   # GET /posts/new
