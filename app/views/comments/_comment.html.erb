@@ -1,7 +1,7 @@
-<!-- <div id="comment-<%= comment.id %>"> -->
+<div id="comment-<%= comment.id %>">
 	<%= comment.content %>
-	<%= link_to "delete", [comment.post, comment], method: :delete, remote: true %>
-<!-- </div> -->
+	<%= link_to "destroy", [comment.post, comment], method: :delete, remote: true %>
+</div>
 
 <!-- remote: true がある場合、　=>　app/views/posts/...js.erb -->
 <!-- remote: true がない場合、　=>　app/views/posts/...html.erb -->

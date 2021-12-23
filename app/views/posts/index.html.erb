@@ -1,68 +1,50 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
+<div>
+<% @posts.each do |post| %>
+  <div class="block">
+  <%
+    a = post.id
+    @favorite_exists = Favorite.where(post: post) == [] ? false : true
+    #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
+    
+    @comments = post.comments 
+    @c = Comment.new
+  %>
+  
+  <div class="card" style="width:40vw;">
+    <img src="assets/heartred.png" class="card-img-top" alt="...">
+  
+    <div class="card-body" id="<%= post.id %>">
+      <h5 class="card-title"><%= post.title %>&nbsp;&nbsp;&nbsp;&nbsp;<%= pluralize(post.comments.count, "Comment") %></h5>
+      <h5 class="card-title FavImg">
+        <%= render "favoritesImage", post: post %>
+      </h5>
+      <br><br>
+      <p>
+        <%= form_with model: [post, @c], local: false do |f| %>
+          <%= f.text_field :content %>
+          <%= f.submit 'Leave a comment' %>
+        <% end %>
+        <% @comments.each do |comment| %>
+            <%= render "comments/comment", comment: comment %><br>
+        <% end %>
+      </p><br>
+      <p>
+        <%= link_to 'Show', post, class: "btn btn-primary" %>
+        <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning" %>
+        <%= link_to 'Destroy', post, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+      </p>
+    </div>
+  </div>
+  <br>
+  </div>
+<% end %>
+</div>
+<br><br>
 
-
-<table>
-  <thead>
-    <tr>
-      <th>ID
-
-      </th>
-      <th>Title</th>
-      <th colspan="9"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
-      <%
-        a = post.id
-        @favorite_exists = Favorite.where(post: post) == [] ? false : true
-        #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
-        
-        @comments = post.comments 
-        @c = Comment.new
-      %>
-      <%
-        
-      %>
-      
-      <tr>
-        
-        <td><%= post.id %></td>
-        <td><%= post.title %></td>
-        <td><%= pluralize(post.comments.count, "Comment") %></td>
-        <td>
-          <%= form_with model: [post, @c], local: false do |f| %>
-            <%= f.text_field :content %>
-            <%= f.submit 'Leave a comment' %>
-          <% end %>
-          <% @comments.each do |comment| %>
-              <%= render "comments/comment", comment: comment %>
-            <br>
-          <% end %>
-        </td>
-        <td>
-          <%= @favorite_exists %>
-        </td>
-        <td>
-          <%= favorite_text %> <!-- always return as "Favorite", why???  -->
-        </td>
-         <td class="FavList">
-          <%= render "favoritesImage", post: post %>
-        </td> 
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
+<section id="form-create">
 <%= form_with(model: @post) do |form| %>
   <% if @post.errors.any? %>
     <div id="error_explanation">
@@ -85,5 +67,10 @@
     <%= form.submit %>
   </div>
 <% end %>
+</section>
+
+
+
+
 
 

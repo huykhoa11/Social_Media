@@ -48,4 +48,21 @@
 	transition: 0.2s ease;
 }
 
+.card {
+	margin: auto;
 
+}
+
+.card-body {
+	border-top: solid 1px #ccc;
+}
+
+.carousel {
+	width: 100%;
+}
+
+#form-create {
+	position: absolute;
+	bottom: 0;
+
+}

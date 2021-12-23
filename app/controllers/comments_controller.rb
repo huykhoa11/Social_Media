@@ -4,7 +4,10 @@ class CommentsController < ApplicationController
     @comment = @post.comments.create(comment_params)
     @comment.save
     #redirect_to post_path(@post)
-    redirect_to "/posts"
+    redirect_to "/posts##{@post.id}"
+    #redirect_to :back
+    #redirect_back(fallback_location: root_path(anchor: "form-create"))
+
   end
   
   def destroy
@@ -12,7 +15,9 @@ class CommentsController < ApplicationController
       @comment = @post.comments.find(params[:id])
       @comment.destroy
       #redirect_to post_path(@post)
-      redirect_to "/posts"
+      redirect_to "/posts##{@post.id}"
+      #redirect_to :back
+      #redirect_back(fallback_location: root_path(anchor: 'form-create'))
   end
 
   private

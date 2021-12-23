@@ -1,13 +1,15 @@
-<% if @favorite_exists == false %>
-  	<div class="like fav", style="filter: grayscale(100%);"></div>
-  	<div><%= link_to "Favorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:gray;",remote: true %><div>
-  		<script>console.log("Favorite");</script>
-  <% else %>
-  	<div class="like fav", style="filter: grayscale(0%);"></div>
-  	<div><%= link_to "UnFavorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:red;",remote: true %></div>
+<div>
+	<% if @favorite_exists == false %>
+		<div class="like fav", style="filter: grayscale(100%);"></div>
+		<div><%= link_to "Favorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:gray;",remote: true %><div>
+			<script>console.log("Favorite");</script>
+	<% end %>
+	<% if @favorite_exists == true %>
+		<div class="like fav", style="filter: grayscale(0%);"></div>
+		<div><%= link_to "UnFavorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:red;",remote: true %></div>
 		<script>console.log("UnFavorite");</script>
-  <% end %>
-
+	<% end %>
+</div>
  <script>
   	console.log("####################################");
 	// var count = $("table .FavList #favorite_link").length;
