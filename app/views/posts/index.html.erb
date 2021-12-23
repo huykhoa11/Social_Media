@@ -11,7 +11,7 @@
 
       </th>
       <th>Title</th>
-      <th colspan="9"></th>
+      <th colspan="7"></th>
     </tr>
   </thead>
 
@@ -43,12 +43,6 @@
               <%= render "comments/comment", comment: comment %>
             <br>
           <% end %>
-        </td>
-        <td>
-          <%= @favorite_exists %>
-        </td>
-        <td>
-          <%= favorite_text %> <!-- always return as "Favorite", why???  -->
         </td>
          <td class="FavList">
           <%= render "favoritesImage", post: post %>
