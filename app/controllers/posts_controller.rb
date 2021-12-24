@@ -38,7 +38,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to "/posts", notice: "Post was successfully created." }
+        format.html { redirect_to "/posts##{@post.id}", notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }

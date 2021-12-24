@@ -1,6 +1,18 @@
 <div id="comment-<%= comment.id %>">
-	<%= comment.content %>
-	<%= link_to "destroy", [comment.post, comment], method: :delete, remote: true %>
+		<% 
+			time = Time.now
+			t = (Date.today - comment.created_at.to_date)
+			#str = t<=1 ? t.to_i.to_s + " day ago" : t.to_i.to_s + " days ago"
+			if t == 0
+				str = "Today"
+			elsif t == 1
+				str = t.to_i.to_s + " day ago"
+			else
+				str = t.to_i.to_s + " days ago"
+			end
+		%>
+		<big><%= comment.content %></big>&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><%= str %></span>&nbsp;&nbsp;
+		<%= link_to image_tag("cancel.png"), [comment.post, comment], method: :delete, remote: true %>
 </div>
 
 <!-- remote: true がある場合、　=>　app/views/posts/...js.erb -->

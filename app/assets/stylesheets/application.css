@@ -49,6 +49,7 @@
 }
 
 .card {
+
 	margin: auto;
 
 }
@@ -65,4 +66,13 @@
 	position: absolute;
 	bottom: 0;
 
+}
+
+.post-title {
+	font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.small {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
 }

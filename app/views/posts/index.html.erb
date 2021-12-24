@@ -9,32 +9,33 @@
     @favorite_exists = Favorite.where(post: post) == [] ? false : true
     #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
     
-    @comments = post.comments 
+    @comments = post.comments.order('created_at DESC')
     @c = Comment.new
   %>
   
-  <div class="card" style="width:40vw;">
+  <div class="card" style="width:35vw;" id="<%= post.id %>">
     <img src="assets/heartred.png" class="card-img-top" alt="...">
   
-    <div class="card-body" id="<%= post.id %>">
-      <h5 class="card-title"><%= post.title %>&nbsp;&nbsp;&nbsp;&nbsp;<%= pluralize(post.comments.count, "Comment") %></h5>
+    <div class="card-body">
+      <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><%= pluralize(post.comments.count, "Comment") %></small></h5>
       <h5 class="card-title FavImg">
         <%= render "favoritesImage", post: post %>
       </h5>
       <br><br>
       <p>
         <%= form_with model: [post, @c], local: false do |f| %>
-          <%= f.text_field :content %>
-          <%= f.submit 'Leave a comment' %>
+        <div class="input-group mb-3">
+          <%= f.text_field :content, class:"form-control", placeholder: "Leave a comment" %>
+          <%= f.submit 'Send', class: "button is-link" %>
+          </div>
         <% end %>
         <% @comments.each do |comment| %>
             <%= render "comments/comment", comment: comment %><br>
         <% end %>
       </p><br>
       <p>
-        <%= link_to 'Show', post, class: "btn btn-primary" %>
-        <%= link_to 'Edit', edit_post_path(post), class: "btn btn-warning" %>
-        <%= link_to 'Destroy', post, class: "btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to 'Edit', edit_post_path(post), class: "button is-warning" %>
+        <%= link_to 'Destroy', post, class: "button is-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
       </p>
     </div>
   </div>
@@ -42,7 +43,7 @@
   </div>
 <% end %>
 </div>
-<br><br>
+<br><br><br><br><br>
 
 <section id="form-create">
 <%= form_with(model: @post) do |form| %>
