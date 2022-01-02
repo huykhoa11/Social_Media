@@ -1,74 +1,95 @@
+<%= notice %>
+<% if user_signed_in? %>
+  <h1> Hi 
+  <span style="color: crimson"><%= current_user.email %></span>,
+  Welcome back !!
+  </h1>
+<% else %>
+  <h1>Please Sign in first ! :D</h1>
+<% end %>
+<br>
 
-<p id="notice"><%= notice %></p>
+<br>
+<% User.all.each do |user| %>
+  <%= user.email %><br>
+<% end %>
 
 <div>
 <% @posts.each do |post| %>
-  <div class="block">
-  <%
-    a = post.id
-    @favorite_exists = Favorite.where(post: post) == [] ? false : true
-    #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
+    <div class="block">
+    <%
+      a = post.id
+      @favorite_exists = Favorite.where(post: post, user_id: post.user_id) == [] ? false : true
+      #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
+      
+      @comments = post.comments.order('created_at DESC')
+      @c = Comment.new
+      #fav_count = Favorite.where(:post_id => post.id).count
+      #@fav_count = pluralize(post.favorites.count, "like")
+    %>
     
-    @comments = post.comments.order('created_at DESC')
-    @c = Comment.new
-  %>
-  
-  <div class="card" style="width:35vw;" id="<%= post.id %>">
-    <img src="assets/heartred.png" class="card-img-top" alt="...">
-  
-    <div class="card-body">
-      <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><%= pluralize(post.comments.count, "Comment") %></small></h5>
-      <h5 class="card-title FavImg">
-        <%= render "favoritesImage", post: post %>
-      </h5>
-      <br><br>
-      <p>
-        <%= form_with model: [post, @c], local: false do |f| %>
-        <div class="input-group mb-3">
-          <%= f.text_field :content, class:"form-control", placeholder: "Leave a comment" %>
-          <%= f.submit 'Send', class: "button is-link" %>
+    <div class="card"  id="<%= post.id %>">
+      <img src="assets/heartred.png" class="card-img-top" alt="...">
+    
+      <div class="card-body">
+        <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                <%= link_to 'Edit', edit_post_path(post) %>
+              </a>
+              <a class="navbar-item">
+                <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+              </a>
+            </div>
           </div>
+
+
+        <% if user_signed_in? %>
+          <h5 class="card-title FavImg">
+
+            <%= render "favoritesImage", post: post %>
+          </h5>
         <% end %>
-        <% @comments.each do |comment| %>
-            <%= render "comments/comment", comment: comment %><br>
+        <span class="small"><%= pluralize(post.comments.count, "Comment") %></small></h5>
+        <br>
+        <div class="cmt-box">         
+          <% @comments.each do |comment| %>
+              <%= render "comments/comment", comment: comment %><br>
+          <% end %>
+        </div>
+        <br>
+        <% if user_signed_in? %>
+            <%= form_with model: [post, @c], local: false do |f| %>
+            <div class="input-group mb-3">
+              <%= f.text_field :content, class:"form-control", placeholder: "Leave a comment" %>
+              <%= f.submit 'Send', class: "button is-link" %>
+              </div>
+            <% end %>
+        <p>
+            <%= link_to 'Edit', edit_post_path(post), class: "button is-info is-outlined" %>
+            <%= link_to 'Destroy', post, class: "button is-danger is-outlined", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </p>
+
+
         <% end %>
-      </p><br>
-      <p>
-        <%= link_to 'Edit', edit_post_path(post), class: "button is-warning" %>
-        <%= link_to 'Destroy', post, class: "button is-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
-      </p>
+      </div>
     </div>
-  </div>
-  <br>
-  </div>
+    <br>
+    </div>
 <% end %>
 </div>
 <br><br><br><br><br>
 
-<section id="form-create">
-<%= form_with(model: @post) do |form| %>
-  <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-        <% @post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_area :title %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<% if user_signed_in? %>
+  <section id="form-create">
+  <%= render 'form' %>
+  </section>
 <% end %>
-</section>
 
 
 

@@ -3,6 +3,8 @@
 // var count = $("table .FavList #favorite_link").length;
 
 console.log("<%= @ppost.id %>");
+var c = "<%= @fav_count %>";
+var result = "";
 <%
 	@FavArr = []
 	#@mark = 0
@@ -12,12 +14,19 @@ console.log("<%= @ppost.id %>");
 			@mark = @FavArr.find_index(pp.id) + 1
 		end
 	end
+	@fav_count = Favorite.where(:post_id => @ppost.id).count
+
+	# if @fav_count == 1 || @fav_count == 0
+	# 	result = c.concat("like");
+	# else
+	# 	result = c.concat("likes");
 %>
 
 // $("#favorite_link").css("color","gray");
 // $(".like").css("filter", "grayscale(100%)");
 
-var t = "<%= @mark %>"; 
+var t = "<%= @mark %>";
+var c = "<%= @fav_count %>";
 console.log(t);
 // $( "div ul:nth-child(" +t+ ") #ha" ).append( "<span> - 2nd!</span>" );
 
@@ -29,6 +38,8 @@ console.log(t);
 	$(".block:nth-child(" + t + ") #favorite_link").css("color","gray");
 	$(".block:nth-child(" + t + ") #favorite_link").text("Favorite");
 	$(".block:nth-child(" + t + ") .like").css("filter", "grayscale(100%)");
+	$("#favorites-count").text(c);
+	console.log("test fav count in false");
 <% end %>
 <% if @favorite_exists == true %>
 	console.log("@favorite_exists = true");
@@ -38,6 +49,8 @@ console.log(t);
 	$(".block:nth-child(" + t + ") #favorite_link").css("color","red");
 	$(".block:nth-child(" + t + ") #favorite_link").text("UnFavorite");
 	$(".block:nth-child(" + t + ") .like").css("filter", "grayscale(0%)");
+	$("#favorites-count").text(c);
+	console.log("test fav count in false");
 <% end %>
 
 

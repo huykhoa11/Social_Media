@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  get '/search', to:"posts#search"
   get 'favorites/update'
   get 'favorites/UpdateIndex'
   get 'comments/create'

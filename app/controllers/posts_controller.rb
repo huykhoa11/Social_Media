@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: [:show, :new, :edit, :create, :destroy]
+  before_action :authenticate_user!, except: [:index]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def set_favorite_exists
     #@favorite_exists = Favorite.where(post: post) == [] ? false : true
@@ -16,7 +19,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    @favorite_exists = Favorite.where(post: @post) == [] ? false : true
+    @favorite_exists = Favorite.where(post: @post, user_id: current_user.id) == [] ? false : true
     @post = Post.find(params[:id])
     @comments = @post.comments  #投稿詳細に関連付けてあるコメントを全取得
     @comment = Comment.new
@@ -25,16 +28,24 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @post = current_user.posts.build
+    @post.user_id = current_user.id
+    #@post = Post.new
   end
 
   # GET /posts/1/edit
   def edit
   end
 
+   def search
+     @users = User.where("email LIKE ?", "%" +params[:q]+ "%")
+   end
+
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
+    #@post = Post.new(post_params)
+    @post = current_user.posts.build(post_params)
+    @post.user_id = current_user.id
 
     respond_to do |format|
       if @post.save
@@ -69,14 +80,21 @@ class PostsController < ApplicationController
     end
   end
 
+  def correct_user
+    @post = current_user.posts.find_by(id: params[:id])
+    #redirect_to schedules_path, notice: "Please login first !" if @schedule.nil?
+    redirect_to "/posts", notice: "PLEASE LOGIN FIRST !" if @post.nil?
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+      @post.user_id = current_user.id
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.require(:post).permit(:title, :content, :user_id)
     end
 end
