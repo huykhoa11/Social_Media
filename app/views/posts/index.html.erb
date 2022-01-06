@@ -11,10 +11,7 @@
 <br>
 
 <br>
-<% User.all.each do |user| %>
-  <%= user.email %><br>
-<% end %> 
-<br>
+
 
 <div>
 <% @posts.each do |post| %>
@@ -37,9 +34,9 @@
       <div class="card-header">
         <div class="ava">
           <% if @u.avatar.attached? %>
-            <%= image_tag @u.avatar , width: "40px" %>
+            <%= image_tag(@u.avatar, size: '40x40') %>
           <% else %>
-            <%= image_tag "/default_profile.png", width: "40x" %>
+            <%= image_tag "/default_profile.png", width: "40px" %>
           <% end %>
 
           <%= str1[0] %>
@@ -59,12 +56,17 @@
               </div>
           </div>
         <% end %>
-
       </div>
-      <img src="assets/heartred.png" class="card-img-top" alt="...">
+<div class="post-image">
+      <% (0...post.images.count).each do |image| %>
+            <div class="post-image-item">
+              <%= image_tag(post.images[image], size: "900x600") %>
+              <!-- <img src="polymorphic_url post.images[image].variant(resize: '100x100')"> -->
+            </div>
+          <% end %>
+      </div>
     
       <div class="card-body">
-        
 
         <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;
           

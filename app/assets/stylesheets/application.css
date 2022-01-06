@@ -112,3 +112,20 @@
 	background-color: #eee;
 	justify-content: space-between;
 }
+
+.post-image {
+	margin: auto;
+	width: 100%;
+	height:600px;
+	background-color: #eee;
+	border: 1px dotted black;
+	overflow: auto;
+
+}
+
+.post-image-item {
+	width: 900px;
+
+	margin: auto;
+	border: solid 1px black;
+}

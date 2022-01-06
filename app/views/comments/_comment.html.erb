@@ -10,9 +10,14 @@
 			else
 				str = t.to_i.to_s + " days ago"
 			end
+
+			s = comment.post.user.email.split('@')
 		%>
+		<big><%= s[0] %> :</big>
 		<big><%= comment.content %></big>&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><%= str %></span>&nbsp;&nbsp;
-		<%= link_to image_tag("cancel.png"), [comment.post, comment], method: :delete, remote: true %>
+		<% if comment.post.user == current_user %>
+			<%= link_to image_tag("cancel.png"), [comment.post, comment], method: :delete, remote: true %>
+		<% end %>
 </div>
 
 <!-- remote: true がある場合、　=>　app/views/posts/...js.erb -->

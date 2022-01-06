@@ -35,52 +35,25 @@
         <div class="navbar-start">
           <a href="/" class="navbar-item">
             Home
-          </a>
+          </a>&nbsp;&nbsp;
 
           <a href="/posts/new" class="navbar-item">
             New Post
-          </a>
+          </a>&nbsp;&nbsp;
 
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              More
-            </a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                About
-              </a>
-              <a class="navbar-item">
-                Jobs
-              </a>
-              <a class="navbar-item">
-                Contact
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item">
-                Report an issue
-              </a>
-            </div>
-          </div>
           <% if user_signed_in? %>
             <form class="form-inline" action="/search">
-              <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search User" aria-label="Search">
             </form>           
           <% end %>
         </div>
         <% if user_signed_in? %>
           <div class="navbar-end">
-            <a class="navbar-item">
-              My account
-            </a>
-            <div class="navbar-item">
-              <a>
-                <%= link_to "Edit profile", edit_user_registration_path, class: "button is-outlined" %>
-              </a>
-              <a>
-                <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "button is-outlined" %>
-              </a>
-            </div>
+            <div class="navbar-item"> 
+            <a><%= link_to "Edit profile", edit_user_registration_path, class: "button is-outlined" %> </a>
+            &nbsp;&nbsp;
+            <a><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "button is-outlined" %></a>
+          </div>
 
           </div>
         <% else %>

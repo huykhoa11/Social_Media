@@ -12,11 +12,24 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_area :title %>
+    <% form.label :title %>
+    <%= form.text_area :title, class: "textarea", placeholder: "Title" %>
   </div>
+
+  <div class="field">
+    <div class="file is-info has-name">
+      <label class="file-label">
+        <input class="file-input" type="file" name="resume">
+
+        <%= form.file_field :images, multiple: true, class: "file-name" %>
+      </label>
+    </div>
+
+  </div>
+
 
   <div class="actions">
     <%= form.submit %>
   </div>
+  
 <% end %>

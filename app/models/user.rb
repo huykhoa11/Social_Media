@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
 	def avatar_thumbnail
 		if avatar.attached?
-			#avatar.variant(resize: '50x50!').processed
+			#polymorphic_url(avatar).variant(resize: "300x300")
 		else
 			"/default_profile.png"
 		end
@@ -20,7 +20,7 @@ class User < ApplicationRecord
 	private
 	def add_default_avatar
 		unless avatar.attached?
-			avatar.attach(
+			avatar.attached(
 				io: File.open(
 					Rails.root.join(
 						'app', 'assets', 'images', 'default_profile.png'
