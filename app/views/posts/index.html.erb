@@ -86,7 +86,7 @@
         </div>
         <br>
         <% if user_signed_in? %>
-            <%= form_with model: [post, @c], local: false do |f| %>
+            <%= form_with model: [post, @c, ], local: false do |f| %>
             <div class="input-group mb-3">
               <%= f.text_field :content, class:"form-control", placeholder: "Leave a comment" %>
               <%= f.submit 'Send', class: "button is-link" %>

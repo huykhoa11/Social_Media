@@ -10,8 +10,9 @@
 			else
 				str = t.to_i.to_s + " days ago"
 			end
-
-			s = comment.post.user.email.split('@')
+			a = comment.user_id
+			u = User.find_by(id: a)
+			s = u.email.split('@')
 		%>
 		<big><%= s[0] %> :</big>
 		<big><%= comment.content %></big>&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><%= str %></span>&nbsp;&nbsp;

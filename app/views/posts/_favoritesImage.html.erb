@@ -1,13 +1,13 @@
 <div>
 	<% if @favorite_exists == false %>
 		<div class="like fav", style="filter: grayscale(100%);"></div>
-		<div><%= link_to "Favorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:gray;",remote: true %><div>
-			<script>console.log("Favorite");</script>
+		<div><%= link_to "Love", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:gray;",remote: true %><div>
+			<script>console.log("Love");</script>
 	<% end %>
 	<% if @favorite_exists == true %>
 		<div class="like fav", style="filter: grayscale(0%);"></div>
-		<div><%= link_to "UnFavorite", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:red;",remote: true %></div>
-		<script>console.log("UnFavorite");</script>
+		<div><%= link_to "UnLove", favorites_UpdateIndex_path(post: post), id: "favorite_link", class: "fav", style:"color:red;",remote: true %></div>
+		<script>console.log("UnLove");</script>
 	<% end %>
 </div>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="small" id="favorites-count"><%= pluralize(post.favorites.count, "") %></small></h5>
