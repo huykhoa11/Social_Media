@@ -9,6 +9,14 @@
   </div>
 
   <div class="field">
+    <% if resource.avatar.attached? %>
+      <%= image_tag(resource.avatar) %>
+    <% else %>
+      <%= image_tag "/default_profile.png", width: "100px" %>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>

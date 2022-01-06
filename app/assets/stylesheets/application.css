@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
-
 .container {
 	width: 50vw;
 }
@@ -36,6 +35,10 @@
   content: url(assets/heartred_fit.png);
 }
 */
+.navbar {
+	border-bottom: solid 1px black;
+}
+
 
 .fav {
 	float: left;
@@ -96,4 +99,16 @@
 	background-color: #eee;
 	border: 1px dotted black;
 	overflow: auto;
+}
+
+.ava {
+	/*border-radius: 50px;*/
+	top: 0;
+	/*border: solid 1px black;*/
+	justify-content: flex-end;
+}
+
+.card-header {
+	background-color: #eee;
+	justify-content: space-between;
 }

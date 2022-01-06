@@ -1,3 +1,4 @@
+<script type="text/javascript" src="layout.js"></script>
 <%= notice %>
 <% if user_signed_in? %>
   <h1> Hi 
@@ -12,7 +13,8 @@
 <br>
 <% User.all.each do |user| %>
   <%= user.email %><br>
-<% end %>
+<% end %> 
+<br>
 
 <div>
 <% @posts.each do |post| %>
@@ -24,30 +26,48 @@
       
       @comments = post.comments.order('created_at DESC')
       @c = Comment.new
+      @u = User.find_by(id: post.user_id)
       #fav_count = Favorite.where(:post_id => post.id).count
       #@fav_count = pluralize(post.favorites.count, "like")
+
+      str1 = post.user.email.split('@')
     %>
     
     <div class="card"  id="<%= post.id %>">
+      <div class="card-header">
+        <div class="ava">
+          <% if @u.avatar.attached? %>
+            <%= image_tag @u.avatar , width: "40px" %>
+          <% else %>
+            <%= image_tag "/default_profile.png", width: "40x" %>
+          <% end %>
+
+          <%= str1[0] %>
+        </div>
+
+        <% if post.user == current_user %>
+          <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+
+              <div class="navbar-dropdown">
+
+                  <%= link_to 'Edit', edit_post_path(post), class: "button is-info is-inverted" %><br>
+
+                  <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-inverted" %>
+              </div>
+          </div>
+        <% end %>
+
+      </div>
       <img src="assets/heartred.png" class="card-img-top" alt="...">
     
       <div class="card-body">
+        
+
         <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              More
-            </a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                <%= link_to 'Edit', edit_post_path(post) %>
-              </a>
-              <a class="navbar-item">
-                <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
-              </a>
-            </div>
-          </div>
-
+          
 
         <% if user_signed_in? %>
           <h5 class="card-title FavImg">
@@ -70,10 +90,7 @@
               <%= f.submit 'Send', class: "button is-link" %>
               </div>
             <% end %>
-        <p>
-            <%= link_to 'Edit', edit_post_path(post), class: "button is-info is-outlined" %>
-            <%= link_to 'Destroy', post, class: "button is-danger is-outlined", method: :delete, data: { confirm: 'Are you sure?' } %>
-        </p>
+
 
 
         <% end %>
@@ -83,16 +100,5 @@
     </div>
 <% end %>
 </div>
-<br><br><br><br><br>
-
-<% if user_signed_in? %>
-  <section id="form-create">
-  <%= render 'form' %>
-  </section>
-<% end %>
-
-
-
-
-
+<br><br><br><br>
 
