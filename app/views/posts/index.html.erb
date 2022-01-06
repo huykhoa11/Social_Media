@@ -18,7 +18,9 @@
     <div class="block">
     <%
       a = post.id
-      @favorite_exists = Favorite.where(post: post, user_id: post.user_id) == [] ? false : true
+      # @favorite_exists = Favorite.where(post: post, user_id: post.user_id) == [] ? false : true
+
+      @favorite_exists = Favorite.where(post: post, user_id: current_user.id) == [] ? false : true
       #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
       
       @comments = post.comments.order('created_at DESC')
@@ -38,8 +40,8 @@
           <% else %>
             <%= image_tag "/default_profile.png", width: "40px" %>
           <% end %>
-
-          <%= str1[0] %>
+          &nbsp;
+          <span style="color: crimson"><%= str1[0] %></span>
         </div>
 
         <% if post.user == current_user %>

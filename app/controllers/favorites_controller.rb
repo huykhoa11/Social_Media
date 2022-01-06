@@ -16,10 +16,13 @@ class FavoritesController < ApplicationController
 
 
   def UpdateIndex
+
     @posts = Post.all
     favorite = Favorite.where(post: Post.find(params[:post]), user_id: current_user.id)
     if favorite == []
-      Favorite.create(post: Post.find(params[:post]), user_id: current_user.id)
+      @fav = Favorite.create(post: Post.find(params[:post]), user_id: current_user.id)
+      @fav.user_id = current_user.id
+      @fav.save
       @favorite_exists = true
     else
       favorite.destroy_all
@@ -31,7 +34,7 @@ class FavoritesController < ApplicationController
     end
 
     @ppost = Post.find(params[:post])
-    @favorite_exists = Favorite.where(post: @ppost) == [] ? false : true
+    @favorite_exists = Favorite.where(post: @ppost, user_id: current_user.id) == [] ? false : true
     @mark = 0
   end
 
