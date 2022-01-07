@@ -1,10 +1,12 @@
 <!-- <script type="text/javascript" src="layout.js"></script> -->
-<%= notice %>
+
 <% if user_signed_in? %>
-  <h1> Hi 
-  <span style="color: crimson"><%= current_user.email %></span>,
-  Welcome back !!
-  </h1>
+  <p style="font-size:15px;">
+    <h1> Hi 
+    <span style="color: crimson; "><%= current_user.email %></span>,
+    Welcome back !! &#128522;&#128522;&#128522;
+    </h1>
+  </p>
 <% else %>
   <h1>Please Sign in first ! :D</h1>
 <% end %>

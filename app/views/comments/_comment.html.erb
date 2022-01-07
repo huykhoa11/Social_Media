@@ -11,8 +11,9 @@
 				str = t.to_i.to_s + " days ago"
 			end
 			a = comment.user_id
-			u = User.find_by(id: a)
-			s = u.email.split('@')
+			uu = User.find_by(id: a)
+			s = uu.email.split('@')
+			ava = uu.avatar
 		%>
 		<big><strong><%= s[0] %> :</strong></big>
 		<big><%= comment.content %></big>&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><%= str %></span>&nbsp;&nbsp;

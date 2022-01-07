@@ -1,5 +1,12 @@
-<h1 style="font-size: 40px;">Search Result</h1><br>
+<h1 style="font-size: 40px;"><strong>Search Result :</strong></h1><br>
+
+
+
 
 <% @users.each do |u| %>
-	<%= u.email %>
+	<% if u.avatar.attached? %>
+		<li><%= image_tag(u.avatar, size: '40x40') %>&nbsp;&nbsp;&nbsp;&nbsp;<span><%= link_to u.email, u %></span></li>
+	<% else %>
+		<li><%= image_tag "default_profile.png", size: '40x40' %>&nbsp;&nbsp;&nbsp;&nbsp;<span><%= link_to u.email, u %></span></li>
+	<% end %> 
 <% end %>
