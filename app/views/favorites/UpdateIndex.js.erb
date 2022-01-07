@@ -27,7 +27,9 @@ var result = "";
 
 var t = "<%= @mark %>";
 var c = "<%= @fav_count %>";
+// var c = "<%= pluralize(@ppost.favorites.count, "") %>"
 console.log(t);
+console.log("c = " +c);
 // $( "div ul:nth-child(" +t+ ") #ha" ).append( "<span> - 2nd!</span>" );
 
 <% if @favorite_exists == false %>
@@ -38,7 +40,7 @@ console.log(t);
 	$(".block:nth-child(" + t + ") #favorite_link").css("color","gray");
 	$(".block:nth-child(" + t + ") #favorite_link").text("Love");
 	$(".block:nth-child(" + t + ") .like").css("filter", "grayscale(100%)");
-	$("#favorites-count").text(c);
+	$(".block:nth-child(" + t + ") #favorites-count").text(c);
 	console.log("test fav count in false");
 <% end %>
 <% if @favorite_exists == true %>
@@ -49,7 +51,7 @@ console.log(t);
 	$(".block:nth-child(" + t + ") #favorite_link").css("color","red");
 	$(".block:nth-child(" + t + ") #favorite_link").text("UnLove");
 	$(".block:nth-child(" + t + ") .like").css("filter", "grayscale(0%)");
-	$("#favorites-count").text(c);
+	$(".block:nth-child(" + t + ") #favorites-count").text(c);
 	console.log("test fav count in false");
 <% end %>
 

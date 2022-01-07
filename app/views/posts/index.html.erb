@@ -1,4 +1,4 @@
-<script type="text/javascript" src="layout.js"></script>
+<!-- <script type="text/javascript" src="layout.js"></script> -->
 <%= notice %>
 <% if user_signed_in? %>
   <h1> Hi 
@@ -19,8 +19,10 @@
     <%
       a = post.id
       # @favorite_exists = Favorite.where(post: post, user_id: post.user_id) == [] ? false : true
-
-      @favorite_exists = Favorite.where(post: post, user_id: current_user.id) == [] ? false : true
+      if user_signed_in?
+        @favorite_exists = Favorite.where(post: post, user_id: current_user.id) == [] ? false : true
+      end
+        
       #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
       
       @comments = post.comments.order('created_at DESC')
@@ -59,7 +61,7 @@
           </div>
         <% end %>
       </div>
-<div class="post-image">
+      <div class="post-image">
       <% (0...post.images.count).each do |image| %>
             <div class="post-image-item">
               <%= image_tag(post.images[image], size: "900x600") %>
@@ -88,7 +90,7 @@
         </div>
         <br>
         <% if user_signed_in? %>
-            <%= form_with model: [post, @c, ], local: false do |f| %>
+            <%= form_with model: [post, @c], local: false do |f| %>
             <div class="input-group mb-3">
               <%= f.text_field :content, class:"form-control", placeholder: "Leave a comment" %>
               <%= f.submit 'Send', class: "button is-link" %>

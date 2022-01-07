@@ -14,9 +14,9 @@
 			u = User.find_by(id: a)
 			s = u.email.split('@')
 		%>
-		<big><%= s[0] %> :</big>
+		<big><strong><%= s[0] %> :</strong></big>
 		<big><%= comment.content %></big>&nbsp;&nbsp;&nbsp;&nbsp;<span class="small"><%= str %></span>&nbsp;&nbsp;
-		<% if comment.post.user == current_user %>
+		<% if comment.user == current_user %>
 			<%= link_to image_tag("cancel.png"), [comment.post, comment], method: :delete, remote: true %>
 		<% end %>
 </div>
