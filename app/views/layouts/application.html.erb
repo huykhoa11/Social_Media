@@ -40,10 +40,12 @@
           <a href="/" class="navbar-item">
             Home
           </a>&nbsp;&nbsp;
-
-          <a href="/posts/new" class="navbar-item">
-            New Post
-          </a>&nbsp;&nbsp;
+          <% if user_signed_in? %>
+            <a href="/posts/new" class="navbar-item">
+              New Post
+            </a>&nbsp;&nbsp;       
+          <% end %>
+          
 
           <% if user_signed_in? %>
             <form class="form-inline" action="/search">
