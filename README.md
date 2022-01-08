@@ -9,7 +9,7 @@ After login, user can setting up account's avatar, create post with mutiple imag
 In each post, it displays number of likes and comments.<br>
 Before sign in, user can only see post title and post's image, can't like or comment. Furthormore, current user can also search for other user's information.
 
-At the end of the page, there is a twitter share button, so user can share link of localhost to Twitter. (Use "social-buttons" gem).
+At the end of the index page, there is a twitter share button, so user can share link of localhost to Twitter. (Use "social-buttons" gem).
  
 <br>
 # Preview
