@@ -129,3 +129,80 @@
 	margin: auto;
 	/*border: solid 1px black;*/
 }
+
+/* スライドショー全体のスタイル */
+/*.slide {
+	position: relative;
+	margin: 0 auto;
+	max-width: 960px;
+	font-size: 0;
+}
+
+.slide img {
+	max-width: 100%;
+}
+*/
+/*　写真の配置 */
+/*.slide > .container {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.slide > .container > li { 
+	position: absolute;
+	z-index: 0;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	transition: opacity 1s linear;
+} 
+
+.slide > .container > li.current {
+	position: relative;
+	z-index: 1;
+	opacity: 1;
+}*/
+
+/* スライドショーのボタン */
+/*.slide a.prev  {
+	position: absolute;
+	display: block;
+	top: 45%;
+	width: 40px;
+	height: 40px;
+	text-indent: -5000px;
+	z-index:10;
+	background: url("assets/arrow-left1.png") 50% 50% no-repeat;
+	left: 0;
+}
+
+.slide a.next {
+	position: absolute;
+	display: block;
+	top: 45%;
+	width: 40px;
+	height: 40px;
+	text-indent: -5000px;
+	z-index:10;
+	background: url("assets/arrow-right1.png") 50% 50% no-repeat;
+	right: 0;
+}
+
+.slide a.prev:hover {
+	background: url("assets/arrow-left2.png") 50% 50% no-repeat;
+}
+
+.slide a.prev:active {
+	background: url("assets/arrow-left3.png") 50% 50% no-repeat;
+}
+
+.slide a.next:hover {
+	background: url("assets/arrow-right2.png") 50% 50% no-repeat;
+}
+
+.slide a.next:active {
+	background: url("assets/arrow-right3.png") 50% 50% no-repeat;
+}*/
