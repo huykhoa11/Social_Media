@@ -1,0 +1,5 @@
+
+<% @comments = Post.find(params[:post_id]).comments.order('created_at DESC') %>
+<% @comments.each do |comment| %>
+  <%= render "comments/comment", comment: comment %>  <!-- _comment.html.erb chỉ là 1 cmt thôi, ko phải tất cả cmt -->
+<% end %>

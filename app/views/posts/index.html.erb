@@ -1,5 +1,4 @@
 <!-- <script type="text/javascript" src="layout.js"></script> -->
-
 <% if user_signed_in? %>
   <p style="font-size:15px;">
     <h1> Hi 
@@ -85,20 +84,22 @@
         <% end %>
         <span class="small"><%= pluralize(post.comments.count, "Comment") %></small></h5>
         <br>
-        <div class="cmt-box">         
+        <div class="cmt-box">  
           <% @comments.each do |comment| %>
-              <%= render "comments/comment", comment: comment %><br>
-          <% end %>
+            <%= render "comments/comment", comment: comment %>  <!-- _comment.html.erb chỉ là 1 cmt thôi, ko phải tất cả cmt -->
+          <% end %> 
         </div>
         <br>
-        <% if user_signed_in? %>
-            <%= form_with model: [post, @c], local: false do |f| %>
-            <div class="input-group mb-3">
-              <%= f.text_field :content, class:"form-control", placeholder: "Leave a comment" %>
-              <%= f.submit 'Send', class: "button is-link" %>
-              </div>
-            <% end %>
-        <% end %>
+        <div >
+          <% if user_signed_in? %>
+              <%= form_with model: [post, @c], local: false, remote: true do |f| %>
+              <div class="input-group mb-3">
+                <%= f.text_field :content, class:  "form-control input-box", placeholder: "Leave a comment" %>
+                <%= f.submit 'Send', class: "button is-link" %>
+                </div>
+              <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
     <br>

@@ -1,5 +1,5 @@
-// $('#cmt').prepend("<%= j render @comment %>");
-// $('#cmt').val("");
+$('.cmt-box').prepend("<%= j render @comment %>");
+$('.input-box').val("");
 
 // j (render @comment) の j は ActionView::Helpers::JavaScriptHelper#escape_javascriptの alias method
 //
