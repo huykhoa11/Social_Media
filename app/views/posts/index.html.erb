@@ -17,92 +17,93 @@
 <div>
 <% @posts.each do |post| %>
     <div class="block">
-    <%
-      a = post.id
-      # @favorite_exists = Favorite.where(post: post, user_id: post.user_id) == [] ? false : true
-      if user_signed_in?
-        @favorite_exists = Favorite.where(post: post, user_id: current_user.id) == [] ? false : true
-      end
+      <%
+        a = post.id
+        # @favorite_exists = Favorite.where(post: post, user_id: post.user_id) == [] ? false : true
+        if user_signed_in?
+          @favorite_exists = Favorite.where(post: post, user_id: current_user.id) == [] ? false : true
+        end
+          
+        #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
         
-      #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
+        @comments = post.comments.order('created_at DESC')
+        @c = Comment.new
+        @u = User.find_by(id: post.user_id)
+        #fav_count = Favorite.where(:post_id => post.id).count
+        #@fav_count = pluralize(post.favorites.count, "like")
+
+        str1 = post.user.email.split('@')
+      %>
       
-      @comments = post.comments.order('created_at DESC')
-      @c = Comment.new
-      @u = User.find_by(id: post.user_id)
-      #fav_count = Favorite.where(:post_id => post.id).count
-      #@fav_count = pluralize(post.favorites.count, "like")
-
-      str1 = post.user.email.split('@')
-    %>
-    
-    <div class="card"  id="<%= post.id %>">
-      <div class="card-header">
-        <div class="ava">
-          <% if @u.avatar.attached? %>
-            <%= image_tag(@u.avatar, size: '40x40') %>
-          <% else %>
-            <%= image_tag "/default_profile.png", width: "40px" %>
-          <% end %>
-          &nbsp;
-          <span style="color: crimson"><%= str1[0] %></span>
-        </div>
-
-        <% if post.user == current_user %>
-          <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                More
-              </a>
-
-              <div class="navbar-dropdown">
-
-                  <%= link_to 'Edit', edit_post_path(post), class: "button is-info is-inverted" %><br>
-
-                  <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-inverted" %>
-              </div>
+      <div class="card"  id="<%= post.id %>">
+        <div class="card-header">
+          <div class="ava">
+            <% if @u.avatar.attached? %>
+              <%= image_tag(@u.avatar, size: '40x40') %>
+            <% else %>
+              <%= image_tag "/default_profile.png", width: "40px" %>
+            <% end %>
+            &nbsp;
+            <span style="color: crimson"><%= str1[0] %></span>
           </div>
-        <% end %>
-      </div>
-      <div class="post-image">
-      <% (0...post.images.count).each do |image| %>
-            <div class="post-image-item">
-              <%= image_tag(post.images[image], size: "900x600") %>
-              <!-- <img src="polymorphic_url post.images[image].variant(resize: '100x100')"> -->
+
+          <% if post.user == current_user %>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  More
+                </a>
+
+                <div class="navbar-dropdown">
+
+                    <%= link_to 'Edit', edit_post_path(post), class: "button is-info is-inverted" %><br>
+
+                    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-inverted" %>
+                </div>
             </div>
           <% end %>
-      </div>
-    
-      <div class="card-body">
+        </div>
+        <div class="post-image">
+            <% (0...post.images.count).each do |image| %>
+              <div class="post-image-item">
+                <%= image_tag(post.images[image], size: "900x600") %>
+                <!-- <img src="polymorphic_url post.images[image].variant(resize: '100x100')"> -->
+              </div>
+            <% end %>
+        </div>
+      
+        <div class="card-body">
 
-        <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;
-          
+          <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            <% if user_signed_in? %>
+              <h5 class="card-title FavImg">
 
-        <% if user_signed_in? %>
-          <h5 class="card-title FavImg">
-
-            <%= render "favoritesImage", post: post %>
+                <%= render "favoritesImage", post: post %>
+              </h5>
+            <% end %>
+            <span class="small"><%= pluralize(post.comments.count, "Comment") %></small>
           </h5>
-        <% end %>
-        <span class="small"><%= pluralize(post.comments.count, "Comment") %></small></h5>
-        <br>
-        <div class="cmt-box">  
-          <% @comments.each do |comment| %>
-            <%= render "comments/comment", comment: comment %>  <!-- _comment.html.erb chỉ là 1 cmt thôi, ko phải tất cả cmt -->
-          <% end %> 
-        </div>
-        <br>
-        <div >
-          <% if user_signed_in? %>
-              <%= form_with model: [post, @c], local: false, remote: true do |f| %>
-              <div class="input-group mb-3">
-                <%= f.text_field :content, class:  "form-control input-box", placeholder: "Leave a comment" %>
-                <%= f.submit 'Send', class: "button is-link" %>
-                </div>
-              <% end %>
-          <% end %>
+          <br>
+          <div class="cmt-box">  
+            <% @comments.each do |comment| %>
+              <%= render "comments/comment", comment: comment %>  <!-- _comment.html.erb chỉ là 1 cmt thôi, ko phải tất cả cmt -->
+            <% end %> 
+          </div>
+          <br>
+          <div >
+            <% if user_signed_in? %>
+                <%= form_with model: [post, @c], local: false, remote: true do |f| %>
+                <div class="input-group mb-3">
+                  <%= f.text_field :content, class:  "form-control input-box", placeholder: "Leave a comment" %>
+                  <%= f.submit 'Send', class: "button is-link" %>
+                  </div>
+                <% end %>
+            <% end %>
+          </div>
+          
         </div>
       </div>
-    </div>
-    <br>
+      <br>
     </div>
 
 <% end %>

@@ -1,4 +1,22 @@
-$('.cmt-box').prepend("<%= j render @comment %>");
+<%
+	@CmtArr = []
+	#@mark = 0
+	@posts.each do |pp|
+		@CmtArr << pp.id
+		if pp.id == @post.id
+			@mark = @CmtArr.find_index(pp.id) + 1
+		end
+	end
+
+	# if @fav_count == 1 || @fav_count == 0
+	# 	result = c.concat("like");
+	# else
+	# 	result = c.concat("likes");
+%>
+var t = "<%= @mark %>";
+console.log(t);
+
+$(".block:nth-child(" + t + ") .card-body .cmt-box").prepend("<%= j render @comment %>");
 $('.input-box').val("");
 
 // j (render @comment) の j は ActionView::Helpers::JavaScriptHelper#escape_javascriptの alias method

@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   
 
   def create
+    @posts = Post.all
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params)
     @comment.user_id = current_user.id
@@ -15,10 +16,13 @@ class CommentsController < ApplicationController
       format.js
     end
 
+    @mark = 0
   end
   
   def destroy
+      @posts = Post.all
       @post = Post.find(params[:post_id])
+      @a = @post.id
       @comment = @post.comments.find(params[:id])
       @comment.destroy
       #redirect_to post_path(@post)
@@ -28,6 +32,8 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.js
       end
+
+      @mark = 0
   end
 
   private
