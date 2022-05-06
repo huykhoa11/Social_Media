@@ -1,10 +1,18 @@
 <% if @user.avatar.attached? %>
-	<%= image_tag(@user.avatar, size: '40x40') %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 30px;"><%= @user.email %></span><br><br>
+	<%= image_tag(@user.avatar, size: '40x40') %>&nbsp;&nbsp;&nbsp;&nbsp;
+  <span style="color:crimson; font-size: 30px;"><%= @user.email %></span>&nbsp;&nbsp;
+  <%= link_to "Edit profile", edit_user_registration_path, class: "button is-primary is-outlined" %>
+  <br><br>
 <% else %>
-	<%= image_tag "default_profile.png", size: '40x40' %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 30px;"><%= @user.email %></span><br><br>
+	<%= image_tag "default_profile.png", size: '40x40' %>&nbsp;&nbsp;&nbsp;&nbsp;
+  <span style="color:crimson; font-size: 30px;"><%= @user.email %></span>&nbsp;&nbsp;
+  <%= link_to "Edit profile", edit_user_registration_path, class: "button is-primary is-outlined" %>
+  <br><br>
 <% end %> 
 
 <% str1 = @user.email.split('@') %>
+
+
 <table class="table table-striped">
   <thead>
     <tr>

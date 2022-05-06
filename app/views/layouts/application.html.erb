@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> <!-- font-awsome -->
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -39,12 +40,14 @@
         <div class="navbar-start">
           <a href="/" class="navbar-item">
             Home
-          </a>&nbsp;&nbsp;
-          <% if user_signed_in? %>
-            <a href="/posts/new" class="navbar-item">
+          </a>
+          
+          <a href="/posts/new" class="navbar-item">
+            <% if user_signed_in? %>
               New Post
-            </a>&nbsp;&nbsp;       
-          <% end %>
+            <% end %>
+          </a>     
+          
           
 
           <% if user_signed_in? %>
@@ -58,15 +61,15 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <% if current_user.avatar.attached? %>
-                <%= image_tag(current_user.avatar, size: '30x30') %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= current_user.email %></span><br><br>
+                <%= image_tag(current_user.avatar, size: '30x30') %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= str1[0] %></span><br><br>
               <% else %>
-                <%= image_tag "default_profile.png", size: '30x30' %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= current_user.email %></span><br><br>
+                <%= image_tag "default_profile.png", size: '30x30' %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= str1[0] %></span><br><br>
               <% end %> 
             </div>
 
             <div class="navbar-item"> 
             
-            <a><%= link_to "Edit profile", edit_user_registration_path, class: "button is-primary is-outlined" %> </a>
+            
             &nbsp;&nbsp;
             <a><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "button is-link is-outlined" %></a>
           </div>
