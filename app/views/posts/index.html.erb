@@ -44,7 +44,7 @@
               <%= image_tag "/default_profile.png", width: "40px" %>
             <% end %>
             &nbsp;
-            <span style="color: crimson"><%= str1[0] %></span>
+            <span style="color: crimson"><%= link_to str1[0], @u %></span>
           </div>
 
           <% if post.user == current_user %>
@@ -112,4 +112,3 @@
 <br><br>
 <%= tweet_button %>
 <br><br>
-
