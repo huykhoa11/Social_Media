@@ -22,7 +22,7 @@ class FavoritesController < ApplicationController
     if favorite == []
       @fav = Favorite.create(post: Post.find(params[:post]), user_id: current_user.id)
       @fav.user_id = current_user.id
-      @fav.save
+      # @fav.save
       @favorite_exists = true
     else
       favorite.destroy_all
