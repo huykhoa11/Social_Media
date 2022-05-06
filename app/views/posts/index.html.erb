@@ -62,13 +62,37 @@
             </div>
           <% end %>
         </div>
-        <div class="post-image">
-            <% (0...post.images.count).each do |image| %>
-              <div class="post-image-item">
-                <%= image_tag(post.images[image], size: "900x600") %>
-                <!-- <img src="polymorphic_url post.images[image].variant(resize: '100x100')"> -->
-              </div>
-            <% end %>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+
+            <div class="post-image">
+              <% (0...post.images.count).each do |image| %>
+
+                  <% if image == 0 %>
+                    <div class="carousel-item active">
+                      <%= image_tag(post.images[image], class: "d-block w-100") %>
+                    </div>
+                  <% else %>
+                    <div class="carousel-item">
+                      <%= image_tag(post.images[image], class: "d-block w-100") %>
+                    </div>
+                  <% end %>
+                  <!-- <img src="polymorphic_url post.images[image].variant(resize: '100x100')"> -->
+
+              <% end %>
+            </div> 
+          </div>
+
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       
         <div class="card-body">
