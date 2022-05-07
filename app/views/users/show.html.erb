@@ -13,29 +13,122 @@
 <% str1 = @user.email.split('@') %>
 
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">User name</th>
-      <th scope="col">Title</th>
-      <th scope="col">Comments</th>
-      <th scope="col">Likes</th>
-      <th scope="col">Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
-  	<% @posts.each do |post| %>
-	    <tr>
-	      <th scope="row"><%= str1[0] %></th>
-	      <td><%= link_to post.title, "/posts##{post.id}" %></td>
-	      <td><%= pluralize(post.comments.count, "Comment") %></td>
-	      <td><%= pluralize(post.favorites.count, "Like") %></td>
-	      <td><%= post.updated_at %></td> 
-	    </tr>
-	<% end %>
-  </tbody>
-</table>
+<% @posts.each do |post| %>
+    <div class="block">
+      <%
+        a = post.id
+        # @favorite_exists = Favorite.where(post: post, user_id: post.user_id) == [] ? false : true
+        if user_signed_in?
+          @favorite_exists = Favorite.where(post: post, user_id: current_user.id) == [] ? false : true
+        end
+          
+        #@favorite_exists = Favorite.where(post: Post.find(:a) == [] ? false : true
+        
+        @comments = post.comments.order('created_at DESC')
+        @c = Comment.new
+        @u = User.find_by(id: post.user_id)
+        #fav_count = Favorite.where(:post_id => post.id).count
+        #@fav_count = pluralize(post.favorites.count, "like")
 
+        str1 = post.user.email.split('@')
+      %>
+      
+      <div class="card"  id="<%= post.id %>">
+        <div class="card-header">
+          <div class="ava">
+            <% if @u.avatar.attached? %>
+              <%= image_tag(@u.avatar, size: '40x40') %>
+            <% else %>
+              <%= image_tag "/default_profile.png", width: "40px" %>
+            <% end %>
+            &nbsp;
+            <span style="color: crimson"><%= link_to str1[0], @u %></span>
+          </div>
+
+          <% if post.user == current_user %>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  More
+                </a>
+
+                <div class="navbar-dropdown">
+
+                    <%= link_to 'Edit', edit_post_path(post), class: "button is-info is-inverted" %><br>
+
+                    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger is-inverted" %>
+                </div>
+            </div>
+          <% end %>
+        </div>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+
+            <div class="post-image">
+              <% (0...post.images.count).each do |image| %>
+
+                  <% if image == 0 %>
+                    <div class="carousel-item active">
+                      <%= image_tag(post.images[image], class: "d-block w-100") %>
+                    </div>
+                  <% else %>
+                    <div class="carousel-item">
+                      <%= image_tag(post.images[image], class: "d-block w-100") %>
+                    </div>
+                  <% end %>
+                  <!-- <img src="polymorphic_url post.images[image].variant(resize: '100x100')"> -->
+
+              <% end %>
+            </div> 
+          </div>
+
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      
+        <div class="card-body">
+
+          <h5 class="card-title"><big class="post-title"><%= link_to post.title , post %></big>&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            <% if user_signed_in? %>
+              <h5 class="card-title FavImg">
+
+                <%= render "posts/favoritesImage", post: post %>
+              </h5>
+            <% end %>
+            <span class="small"><%= pluralize(post.comments.count, "Comment") %></small>
+          </h5>
+          <br>
+          <div class="cmt-box">  
+            <% @comments.each do |comment| %>
+              <%= render "comments/comment", comment: comment %>  <!-- _comment.html.erb chỉ là 1 cmt thôi, ko phải tất cả cmt -->
+            <% end %> 
+          </div>
+          <br>
+          <div >
+            <% if user_signed_in? %>
+                <%= form_with model: [post, @c], local: false, remote: true do |f| %>
+                <div class="input-group mb-3">
+                  <%= f.text_field :content, class:  "form-control input-box", placeholder: "Leave a comment" %>
+                  <%= f.submit 'Send', class: "button is-link" %>
+                  </div>
+                <% end %>
+            <% end %>
+          </div>
+          
+        </div>
+      </div>
+      <br>
+    </div>
+
+<% end %>
 
 
 

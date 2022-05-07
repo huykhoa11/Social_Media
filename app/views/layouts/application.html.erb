@@ -61,9 +61,9 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <% if current_user.avatar.attached? %>
-                <%= image_tag(current_user.avatar, size: '30x30') %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= str1[0] %></span><br><br>
+                <%= image_tag(current_user.avatar, size: '30x30') %>&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= str1[0] %></span><br><br>
               <% else %>
-                <%= image_tag "default_profile.png", size: '30x30' %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= str1[0] %></span><br><br>
+                <%= image_tag "default_profile.png", size: '30x30' %>&nbsp;&nbsp;<span style="color:crimson; font-size: 20px;"><%= str1[0] %></span><br><br>
               <% end %> 
             </div>
 
@@ -96,5 +96,20 @@
     <div class="container">
       <%= yield %>
     </div>
+
+
+    <script>
+      $(document).ready(function() {
+
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});
+    </script>
   </body>
 </html>
